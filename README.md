@@ -23,15 +23,25 @@ graph TD
     classDef input fill:#bcf,stroke:#333,stroke-width:1px;
     classDef output fill:#cfc,stroke:#333,stroke-width:1px;
 
-    A([User Query ❓]):::input --> B(1. Embed Query):::process;
-    B --> C{2. Vector Search 🔍};::process
-    D[(Knowledge Base 📚)]:::data --> C;
-    C --> E(3. Retrieve Context):::process;
-    E --> F{4. Construct Prompt};::process
+    A([User Query ❓]):::input
+    B(1. Embed Query):::process
+    C{2. Vector Search 🔍}:::process
+    D[(Knowledge Base 📚)]:::data
+    E(3. Retrieve Context):::process
+    F{4. Construct Prompt}:::process
+    G{{Fine-tuned LLM 🧠}}:::model
+    H(5. Generate Answer ✅):::process
+    I([Return Answer ✨]):::output
+
+    A --> B;
+    B --> C;
+    D --> C;
+    C --> E;
+    E --> F;
     A --> F;
-    G{{Fine-tuned LLM 🧠}}:::model --> F;
-    F --> H(5. Generate Answer ✅):::process;
-    H --> I([Return Answer ✨]):::output;
+    G --> F;
+    F --> H;
+    H --> I;
 ```
 
 ## Setup & Installation ⚙️
