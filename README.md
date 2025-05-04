@@ -16,16 +16,16 @@ This project implements a RAG system for healthcare Q&A using the following comp
 Here's a visual representation of the RAG workflow:
 
 ```mermaid
-graph TD
-    A([User Query ❓]) --> B(1. Embed Query);
-    B --> C{2. Vector Search 🔍};
-    D[(Knowledge Base 📚)] --> C;
-    C --> E(3. Retrieve Context);
-    E --> F{4. Construct Prompt};
-    A --> F;
-    G{{Fine-tuned LLM 🧠}} --> F;
-    F --> H(5. Generate Answer ✅);
-    H --> I([Return Answer ✨]);
+flowchart TD
+    A[User Query] --> B[Embed Query]
+    B --> C[Vector Search]
+    D[Knowledge Base] --> C
+    C --> E[Retrieve Context]
+    E --> F[Construct Prompt]
+    A --> F
+    G[Fine-tuned LLM] --> F
+    F --> H[Generate Answer]
+    H --> I[Return Answer]
 ```
 
 ## Setup & Installation ⚙️
