@@ -17,31 +17,15 @@ Here's a visual representation of the RAG workflow:
 
 ```mermaid
 graph TD
-    classDef data fill:#f9f,stroke:#333,stroke-width:2px,font-weight:bold,color:#000;
-    classDef process fill:#ccf,stroke:#333,stroke-width:2px,font-weight:bold,color:#000;
-    classDef model fill:#ffc,stroke:#333,stroke-width:2px,font-weight:bold,color:#000;
-    classDef input fill:#bcf,stroke:#333,stroke-width:1px,font-weight:bold,color:#000;
-    classDef output fill:#cfc,stroke:#333,stroke-width:1px,font-weight:bold,color:#000;
-
-    A([User Query ❓]):::input
-    B(1. Embed Query):::process
-    C{2. Vector Search 🔍}:::process
-    D[(Knowledge Base 📚)]:::data
-    E(3. Retrieve Context):::process
-    F{4. Construct Prompt}:::process
-    G{{Fine-tuned LLM 🧠}}:::model
-    H(5. Generate Answer ✅):::process
-    I([Return Answer ✨]):::output
-
-    A --> B;
-    B --> C;
-    D --> C;
-    C --> E;
-    E --> F;
+    A([User Query ❓]) --> B(1. Embed Query);
+    B --> C{2. Vector Search 🔍};
+    D[(Knowledge Base 📚)] --> C;
+    C --> E(3. Retrieve Context);
+    E --> F{4. Construct Prompt};
     A --> F;
-    G --> F;
-    F --> H;
-    H --> I;
+    G{{Fine-tuned LLM 🧠}} --> F;
+    F --> H(5. Generate Answer ✅);
+    H --> I([Return Answer ✨]);
 ```
 
 ## Setup & Installation ⚙️
