@@ -56,6 +56,7 @@ coverage.xml
 *.swp
 *.swo
 .DS_Store
+.trae/
 
 # Google Cloud credentials and keys
 *.json
@@ -73,9 +74,7 @@ gcloud/
 .gcloud
 
 # Data files
-data/raw/
-data/docs/
-data/processed/
+data/
 *.csv
 *.jsonl
 *.json
@@ -113,7 +112,6 @@ yarn-error.log*
 *.env
 
 # Exception for sample data and documentation
-!data/docs/
 !data/sample/*
 !example_config.json
 
