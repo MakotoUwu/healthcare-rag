@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare RAG Q&A System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #2c6ca0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .container {
+            background: #f8f8f8;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .query-section {
+            margin-bottom: 30px;
+        }
+        #questionInput {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        #submitBtn {
+            background: #2c6ca0;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+        #submitBtn:hover {
+            background: #1e4c73;
+        }
+        .result-section {
+            margin-top: 30px;
+            display: none;
+        }
+        .answer-box {
+            background: white;
+            padding: 20px;
+            border-radius: 4px;
+            border-left: 4px solid #2c6ca0;
+            margin-top: 20px;
+        }
+        .context-section {
+            margin-top: 30px;
+        }
+        .context-box {
+            background: #f0f7ff;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .error-message {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Healthcare Q&A System</h1>
+        
+        <div class="query-section">
+            <h2>Ask a Medical Question</h2>
+            <textarea id="questionInput" rows="4" placeholder="Enter your healthcare question here. For example: What are the symptoms of diabetes?"></textarea>
+            <button id="submitBtn">Get Answer</button>
+            <div class="loading" id="loadingIndicator">
+                <p>Processing your question...</p>
+            </div>
+            <div class="error-message" id="errorMessage"></div>
+        </div>
+        
+        <div class="result-section" id="resultSection">
+            <h2>Answer</h2>
+            <div class="answer-box" id="answerBox"></div>
+            
+            <div class="context-section">
+                <h3>Reference Information</h3>
+                <div id="contextContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const questionInput = document.getElementById('questionInput');
+            const submitBtn = document.getElementById('submitBtn');
+            const resultSection = document.getElementById('resultSection');
+            const answerBox = document.getElementById('answerBox');
+            const contextContainer = document.getElementById('contextContainer');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            submitBtn.addEventListener('click', async function() {
+                const question = questionInput.value.trim();
+                
+                if (!question) {
+                    alert('Please enter a question');
+                    return;
+                }
+                
+                // Show loading, hide previous results and errors
+                loadingIndicator.style.display = 'block';
+                resultSection.style.display = 'none';
+                errorMessage.style.display = 'none';
+                
+                try {
+                    const response = await fetch('/api/query', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ question: question })
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        // Display the answer
+                        answerBox.textContent = data.answer;
+                        
+                        // Clear previous context
+                        contextContainer.innerHTML = '';
+                        
+                        // Display context chunks if present
+                        if (data.context && data.context.length > 0) {
+                            data.context.forEach((context, index) => {
+                                const contextDiv = document.createElement('div');
+                                contextDiv.className = 'context-box';
+                                contextDiv.textContent = `Source ${index + 1}: ${context}`;
+                                contextContainer.appendChild(contextDiv);
+                            });
+                        } else {
+                            const noContextDiv = document.createElement('div');
+                            noContextDiv.className = 'context-box';
+                            noContextDiv.textContent = 'No reference information available for this question.';
+                            contextContainer.appendChild(noContextDiv);
+                        }
+                        
+                        // Show results
+                        resultSection.style.display = 'block';
+                    } else {
+                        // Handle API error
+                        errorMessage.textContent = data.error || 'An error occurred while processing your question';
+                        errorMessage.style.display = 'block';
+                    }
+                } catch (error) {
+                    // Handle network error
+                    console.error('Error:', error);
+                    errorMessage.textContent = 'Network error. Please try again later.';
+                    errorMessage.style.display = 'block';
+                } finally {
+                    // Hide loading
+                    loadingIndicator.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

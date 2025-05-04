@@ -1,0 +1,118 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.env
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Distribution / packaging
+.Python
+*.manifest
+*.spec
+
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Google Cloud credentials and keys
+*.json
+!package.json
+credentials/
+*-credentials.json
+*_service_account.json
+*key.json
+.config/
+gcloud/
+
+# Authentication files
+.netrc
+.boto
+.gcloud
+
+# Data files
+data/raw/
+data/docs/
+data/processed/
+*.csv
+*.jsonl
+*.json
+*.parquet
+*.sqlite
+*.db
+*.h5
+!.trae/**/*.json  # Allow specific directories
+
+# Model files
+*.pt
+*.pth
+*.h5
+*.pb
+*.onnx
+*.tflite
+*.joblib
+*.pickle
+*.pkl
+model_output/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+
+# Exception for sample data and documentation
+!data/docs/
+!data/sample/*
+!example_config.json
