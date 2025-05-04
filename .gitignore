@@ -116,3 +116,5 @@ yarn-error.log*
 !data/docs/
 !data/sample/*
 !example_config.json
+
+.windsurfrules
