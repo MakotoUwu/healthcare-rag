@@ -17,11 +17,11 @@ Here's a visual representation of the RAG workflow:
 
 ```mermaid
 graph TD
-    classDef data fill:#f9f,stroke:#333,stroke-width:2px,font-weight:bold;
-    classDef process fill:#ccf,stroke:#333,stroke-width:2px,font-weight:bold;
-    classDef model fill:#ffc,stroke:#333,stroke-width:2px,font-weight:bold;
-    classDef input fill:#bcf,stroke:#333,stroke-width:1px,font-weight:bold;
-    classDef output fill:#cfc,stroke:#333,stroke-width:1px,font-weight:bold;
+    classDef data fill:#f9f,stroke:#333,stroke-width:2px,font-weight:bold,color:#000;
+    classDef process fill:#ccf,stroke:#333,stroke-width:2px,font-weight:bold,color:#000;
+    classDef model fill:#ffc,stroke:#333,stroke-width:2px,font-weight:bold,color:#000;
+    classDef input fill:#bcf,stroke:#333,stroke-width:1px,font-weight:bold,color:#000;
+    classDef output fill:#cfc,stroke:#333,stroke-width:1px,font-weight:bold,color:#000;
 
     A([User Query ❓]):::input
     B(1. Embed Query):::process
