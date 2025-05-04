@@ -1,17 +1,40 @@
-# Healthcare RAG Q&A System with Vertex AI
+# Healthcare RAG Q&A System with Vertex AI 🏥
 
 A domain-specific Retrieval-Augmented Generation (RAG) system for healthcare questions, built on Google Cloud Vertex AI. This project demonstrates how to build an end-to-end RAG pipeline with a focus on medical information using open-source healthcare data.
 
-## Project Overview
+## Project Overview 🏥
 
 This project implements a RAG system for healthcare Q&A using the following components:
 
 1. **Data Processing**: Uses the MedQuAD (Medical Question Answering Dataset) to fine-tune a model and build a knowledge base.
 2. **Model Fine-tuning**: Fine-tunes Flan-T5 on healthcare question-answer pairs using Vertex AI Training.
 3. **Vector Search**: Creates a vector index of healthcare information using Vertex AI Vector Search.
-4. **Web Application**: A Flask backend with simple UI for user to ask healthcare questions.
+4. **Web Application** 🌐: A Flask backend with simple UI for user to ask healthcare questions.
 
-## Setup & Installation
+## Workflow Diagram 📈
+
+Here's a visual representation of the RAG workflow:
+
+```mermaid
+graph TD
+    classDef data fill:#f9f,stroke:#333,stroke-width:2px;
+    classDef process fill:#ccf,stroke:#333,stroke-width:2px;
+    classDef model fill:#ffc,stroke:#333,stroke-width:2px;
+    classDef input fill:#bcf,stroke:#333,stroke-width:1px;
+    classDef output fill:#cfc,stroke:#333,stroke-width:1px;
+
+    A([User Query ❓]):::input --> B(1. Embed Query):::process;
+    B --> C{2. Vector Search 🔍};::process
+    D[(Knowledge Base 📚)]:::data --> C;
+    C --> E(3. Retrieve Context):::process;
+    E --> F{4. Construct Prompt};::process
+    A --> F;
+    G{{Fine-tuned LLM 🧠}}:::model --> F;
+    F --> H(5. Generate Answer ✅):::process;
+    H --> I([Return Answer ✨]):::output;
+```
+
+## Setup & Installation ⚙️
 
 ### Prerequisites
 
@@ -60,7 +83,7 @@ BUCKET_NAME="${PROJECT_ID}-rag-bucket"
 gsutil mb -l $REGION -p $PROJECT_ID gs://$BUCKET_NAME
 ```
 
-## Project Structure
+## Project Structure 📁
 
 ```
 ├── data/                      # Data directory
@@ -82,7 +105,7 @@ gsutil mb -l $REGION -p $PROJECT_ID gs://$BUCKET_NAME
 └── README.md                 # Project documentation
 ```
 
-## Development Workflow
+## Development Workflow 🚀
 
 ### Git Workflow
 
@@ -111,7 +134,7 @@ cd src/app
 flask run --port=8080
 ```
 
-## Deployment
+## Deployment ☁️
 
 ### Deploy to Cloud Run
 
@@ -128,6 +151,6 @@ gcloud run deploy healthcare-rag-service \
   --set-env-vars=PROJECT_ID=$PROJECT_ID,REGION=$REGION,BUCKET_NAME=$BUCKET_NAME
 ```
 
-## License
+## License 📄
 
 This project is licensed under the MIT License - see the LICENSE file for details.
