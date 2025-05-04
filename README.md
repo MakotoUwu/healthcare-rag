@@ -99,6 +99,14 @@ gsutil mb -l $REGION -p $PROJECT_ID gs://$BUCKET_NAME
 └── README.md                 # Project documentation
 ```
 
+## Model Details 🧠
+
+This RAG system utilizes a foundation language model fine-tuned for the healthcare domain.
+
+-   **Base Model:** The system is designed around using a model like Google's Flan-T5 (specifically, a checkpoint such as `google/flan-t5-base` or similar). Flan-T5 is chosen for its strong performance on question-answering tasks.
+-   **Fine-Tuning:** The base model is intended to be fine-tuned on a domain-specific dataset (e.g., MedQuAD) to improve its understanding of medical terminology and provide more accurate, contextually relevant answers to healthcare questions. The fine-tuning process adapts the model to the nuances of the healthcare domain.
+-   **Integration:** The fine-tuned model is integrated into the RAG pipeline, where it generates answers based on both the user's query and the relevant context retrieved from the vector search component.
+
 ## Development Workflow 🚀
 
 ### Git Workflow
